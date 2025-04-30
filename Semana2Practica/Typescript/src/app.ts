@@ -1,99 +1,77 @@
-let nombre_variable: string = "hola mundo"
-console.log(nombre_variable)
-
-const student: Istudent = {
-    id: 1,
-    name: "Melanie",
-    correo: "melani@gmail.com",
-    direccion: "casa",
-}
+// Variables 
+const sistemaAgro: string = "SmartAgro"
+let totalCultivos: number = 3
+console.log(`Sistema: ${sistemaAgro}`); 
+console.log(`Cultivos actuales: ${totalCultivos}`);
 
 
 //interfaces
-interface Istudent{
-    id: number;
-    name: string;
-    correo:  string;
-    direccion: string;
-    calificacion?: number; 
+interface Cultivo { 
+    id: number; nombre: string; tipo: string; temporada: string; 
 }
 
-//arreglo con tres estudiantes
-const estudiantes: Istudent[]=[
-    {
-        id: 11,
-        name: "Melanie",
-        correo: "melani@gmail.com",
-        direccion: "casa",
-    },
-
-    {
-        id: 22,
-        name: "Denisse",
-        correo: "Denisse@gmail.com",
-        direccion: "casa",
-        calificacion: 10,
-    }
-]
-
-//para agregar un estudiante mas 
-estudiantes.push({id:33,name:"maria",correo:"maria@gmail.com", direccion:"su casa"});
-
-//otra forma 
-estudiantes.push(student);
-
-//como crear una funcion para agregar estudiantes al arreglo
-
-function Agregar(estudiante: Istudent):void{
-    estudiantes.push(estudiante);
+interface Parcela { 
+    id: number; ubicacion: string; tamanoM2: number; 
 }
 
-
-const estudiante1: Istudent={id:44,name:'',correo:'',direccion:'',}
-Agregar(estudiante1)
-
-
-
-function Agregar2(param:Istudent,callback:(estudiante: Istudent)=>void){
-    estudiantes.push(param);
-    callback(param)
+interface Temporada { 
+    id: number; nombre: string; fechaInicio: string; fechaFin: string; 
 }
 
-const estudiante2:Istudent={id:44,name:'',correo:'',direccion:'',}
-Agregar2(estudiante2,(param:Istudent)=>console.log);
+//Objetos
+const cultivo1: Cultivo ={
+    id: 1, 
+    nombre: "Maíz", 
+    tipo: "Grano", 
+    temporada: "Verano", 
+}
+const cultivo2: Cultivo = { 
+    id: 2, 
+    nombre: "Papa", 
+    tipo: "Raíz", 
+    temporada: "Invierno", 
+};
 
-function Agregar3(param:Istudent):Promise<Istudent>{
-    return new Promise((resolve)=>{
-        estudiantes.push(param);
-        setTimeout(()=>{
-            resolve(param)
+//Arreglo de Objetos 
+const cultivos: Cultivo[]=[cultivo1, cultivo2];
 
-        },
-        1000
-        )
-    })
-   
+//Funciones
+
+function AgregarCultivo(id: number, nombre: string, tipo: string, temporada: string ): Cultivo{
+    return { id, nombre, tipo, temporada };
 }
 
-//para llamar a la funcion
-/*Agregar3(estudiante1).then((Istudent)=>{
-    console.log(student);
-})
-*/
+function MostrarCultivo(c:Cultivo): void{
+    console.log(`${c.nombre} (${c.tipo}) - Temporada: ${c.temporada}`);
+}
 
+//spread y rest
+const cultivosExtra:Cultivo[]=[...cultivos,{
+    id: 3, nombre: "Arroz", tipo: "Grano", temporada: "Otoño" 
+},];
+
+function registrarCultivos(...nuevos:Cultivo[]){
+    nuevos.forEach(c=>console.log(`Cultivo registrado: ${c.nombre}`));
+}
+
+//Callbacks
+function procesarCultivo(cultivo: Cultivo, callback:(c:Cultivo)=>void):void{
+    callback(cultivo)
+}
+
+procesarCultivo(cultivo1, MostrarCultivo);
+
+//Promise 
+function guardarCultivo(c:Cultivo):Promise<string>{
+    return new Promise((resolve)=>{setTimeout(()=>{
+        resolve(`Cultivo ${c.nombre} guardado correctamente.`);
+    },1000);});
+}
+
+//Async/Await
 async function main (){
-    await Agregar3(estudiante1)
-    try 
-    {
-        await Agregar3(estudiante1)
-    }
-    catch (ex){
-
-    }
-    finally
-    {
-
-    }
+    const cultivoNuevo = AgregarCultivo(4, "Cebada", "Grano", "Primavera");
+    const mensaje = await guardarCultivo(cultivoNuevo); console.log(mensaje); 
 
 }
 main()
