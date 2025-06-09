@@ -1,0 +1,15 @@
+<<<<<<< HEAD
+
+
+node_modules/
+keys/
+.env
+
+/postgres
+
+dist/
+=======
+**/node_modules/
+
+.env
+>>>>>>> fea7cafa5438b48a0c7cedb4a8dbb634da91cb65
