@@ -1,0 +1,34 @@
+{
+  "name": "semana7practica3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/main.ts",
+    "start": "node dist/main.js",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/infrastructure/data/typeorm/data-source.ts",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate src/infrastructure/data/typeorm/migrations/NombreMigracion -d src/infrastructure/data/typeorm/data-source.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@types/sequelize": "^4.28.20",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pg": "^8.16.0",
+    "pg-hstore": "^2.3.4",
+    "reflect-metadata": "^0.2.2",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.29",
+    "ts-node": "^10.9.2",
+    "typeorm": "^0.3.24",
+    "typeorm-ts-node-commonjs": "^0.3.20",
+    "typescript": "^5.8.3"
+  }
+}
